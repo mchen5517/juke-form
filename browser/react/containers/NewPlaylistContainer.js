@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import axios from 'axios';
 import NewPlaylist from '../components/NewPlaylist';
 
 class NewPlaylistContainer extends React.Component {
@@ -16,16 +17,24 @@ class NewPlaylistContainer extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.setState({inputValue: ''});
+
+        const input = this.state.inputValue
+        // axios.post('/api/playlists', { name: input })
+        //     .then(res => res.data)
+        //     .then(result => {
+        //         console.log(result) // response json from the server!
+        //     });
+        this.props.onNewPlaylist(input);
+        this.setState({ inputValue: '' });
     }
 
     render() {
         return (
             <div>
-                <NewPlaylist  
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange} 
-                inputValue={this.state.inputValue}/>
+                <NewPlaylist
+                    handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
+                    inputValue={this.state.inputValue} />
             </div>
         );
     }
